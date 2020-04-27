@@ -13,13 +13,19 @@ jobs:
 - job: job1
   steps:
     - script: echo Job1 - Hello , World Changes !
-      displayName: 'Run a one-line script'
+      displayName: 'Run a one-line script -- inside job1'
     - script: |
         echo Add other tasks to build , test and deploy
         echo see https://aks.ms/yaml
         echo more information
-      displayName: 'Run a multi-line script'
+      displayName: 'Run a multi-line script -- inside job1'
 - job: job2
+  dependsOn: Job1
   steps:
   - script: echo Job2!
-    displayName: 'Run a one-line script'       
+    displayName: 'Run a one-line script -- inside job2'
+- job: job3
+  dependsOn: Job2
+  steps:
+  - script: echo Job3!
+    displayName: 'Run a one-line script --inside job3'
